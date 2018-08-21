@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ServiceNameChargeActivity"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/relativeView1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary"
+        android:gravity="start|center">
+
+        <ImageView
+            android:id="@+id/backIcon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_arrow_back_white" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp">
+
+        <EditText
+            android:id="@+id/editTextServiceName"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Service Name"
+            android:padding="10dp"
+            android:textSize="16sp"
+            android:inputType="text"
+            android:textColor="#000000"
+            android:textStyle="bold"/>
+        <EditText
+            android:id="@+id/editTextServiceCost"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/editTextServiceName"
+            android:layout_marginTop="10dp"
+            android:hint="Service Cost"
+            android:padding="10dp"
+            android:textSize="16sp"
+            android:inputType="number"
+            android:textColor="#000000"
+            android:textStyle="bold"/>
+        <Button
+            android:id="@+id/buttonAddService"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_below="@id/editTextServiceCost"
+            android:text="Add"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="110dp"
+            android:background="@drawable/button_background"/>
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>
