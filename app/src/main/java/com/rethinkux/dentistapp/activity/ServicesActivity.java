@@ -1,5 +1,6 @@
-package com.rethinkux.dentistapp;
+package com.rethinkux.dentistapp.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -16,21 +17,26 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.rethinkux.dentistapp.adapter.ServiceRvAdapter;
+import com.rethinkux.dentistapp.R;
+import com.rethinkux.dentistapp.utils.RecyclerItemTouchHelper;
+import com.rethinkux.dentistapp.models.ServiceModel;
+
 import java.util.ArrayList;
 
-public class ServiceTypeActivity extends AppCompatActivity implements View.OnClickListener,RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
+public class ServicesActivity extends AppCompatActivity implements View.OnClickListener,RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
 
     FloatingActionButton fabAdd;
     ImageView backIcon;
     RecyclerView recyclerView;
     RelativeLayout relativeLayout;
-    ServiceDemoAdapter demoAdapter;
-    ArrayList<ServiceModelClass> data = new ArrayList<>();
+    ServiceRvAdapter demoAdapter;
+    ArrayList<ServiceModel> data = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_service_type);
+        setContentView(R.layout.activity_services);
 
         fabAdd=findViewById(R.id.fabAdd);
         recyclerView = findViewById(R.id.recyclerView);
@@ -41,7 +47,7 @@ public class ServiceTypeActivity extends AppCompatActivity implements View.OnCli
         backIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(ServiceTypeActivity.this,DashboardActivity.class);
+                Intent intent=new Intent(ServicesActivity.this,MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -51,18 +57,18 @@ public class ServiceTypeActivity extends AppCompatActivity implements View.OnCli
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
-        ServiceModelClass modelClass = new ServiceModelClass();
-        ServiceModelClass modelClass1 = new ServiceModelClass();
-        ServiceModelClass modelClass2 = new ServiceModelClass();
-        ServiceModelClass modelClass3 = new ServiceModelClass();
-        ServiceModelClass modelClass4 = new ServiceModelClass();
-        ServiceModelClass modelClass5 = new ServiceModelClass();
-        ServiceModelClass modelClass6 = new ServiceModelClass();
-        ServiceModelClass modelClass7 = new ServiceModelClass();
-        ServiceModelClass modelClass8 = new ServiceModelClass();
-        ServiceModelClass modelClass9 = new ServiceModelClass();
-        ServiceModelClass modelClass10 = new ServiceModelClass();
-        ServiceModelClass modelClass11 = new ServiceModelClass();
+        ServiceModel modelClass = new ServiceModel();
+        ServiceModel modelClass1 = new ServiceModel();
+        ServiceModel modelClass2 = new ServiceModel();
+        ServiceModel modelClass3 = new ServiceModel();
+        ServiceModel modelClass4 = new ServiceModel();
+        ServiceModel modelClass5 = new ServiceModel();
+        ServiceModel modelClass6 = new ServiceModel();
+        ServiceModel modelClass7 = new ServiceModel();
+        ServiceModel modelClass8 = new ServiceModel();
+        ServiceModel modelClass9 = new ServiceModel();
+        ServiceModel modelClass10 = new ServiceModel();
+        ServiceModel modelClass11 = new ServiceModel();
 
         modelClass.setTvServiceName("RCT");
         modelClass.setTvServiceCostSymbol("");
@@ -72,17 +78,17 @@ public class ServiceTypeActivity extends AppCompatActivity implements View.OnCli
         modelClass1.setTvServiceCostSymbol("");
         modelClass1.setTvServiceCost("4000");
 
-        modelClass2.setTvServiceName("RCT");
+        modelClass2.setTvServiceName("Tooth Cleaning");
         modelClass2.setTvServiceCostSymbol("");
-        modelClass2.setTvServiceCost("4000");
+        modelClass2.setTvServiceCost("400");
 
-        modelClass3.setTvServiceName("RCT");
+        modelClass3.setTvServiceName("Caping");
         modelClass3.setTvServiceCostSymbol("");
-        modelClass3.setTvServiceCost("4000");
+        modelClass3.setTvServiceCost("2000");
 
-        modelClass4.setTvServiceName("RCT");
+        modelClass4.setTvServiceName("Fealing");
         modelClass4.setTvServiceCostSymbol("");
-        modelClass4.setTvServiceCost("4000");
+        modelClass4.setTvServiceCost("500");
 
         modelClass5.setTvServiceName("RCT");
         modelClass5.setTvServiceCostSymbol("");
@@ -125,7 +131,7 @@ public class ServiceTypeActivity extends AppCompatActivity implements View.OnCli
         data.add(modelClass10);
         data.add(modelClass11);
 
-        demoAdapter=new ServiceDemoAdapter(ServiceTypeActivity.this,data);
+        demoAdapter=new ServiceRvAdapter(ServicesActivity.this,data);
         recyclerView.setAdapter(demoAdapter);
 
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.RIGHT, this);
@@ -137,6 +143,7 @@ public class ServiceTypeActivity extends AppCompatActivity implements View.OnCli
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback1 = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT | ItemTouchHelper.UP) {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+
                 return false;
             }
 
@@ -158,12 +165,12 @@ public class ServiceTypeActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
-        if (viewHolder instanceof ServiceDemoAdapter.MyViewHolder) {
+        if (viewHolder instanceof ServiceRvAdapter.MyViewHolder) {
             // get the removed item name to display it in snack bar
             String name = data.get(viewHolder.getAdapterPosition()).getTvServiceName();
 
             // backup of removed item for undo purpose
-            final ServiceModelClass deletedItem = data.get(viewHolder.getAdapterPosition());
+            final ServiceModel deletedItem = data.get(viewHolder.getAdapterPosition());
             final int deletedIndex = viewHolder.getAdapterPosition();
 
             // remove the item from recycler view
@@ -188,8 +195,18 @@ public class ServiceTypeActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View view) {
 
-        Intent intent=new Intent(ServiceTypeActivity.this,ServiceNameChargeActivity.class);
+        Intent intent=new Intent(ServicesActivity.this,AddServiceActivity.class);
         startActivity(intent);
+
+    }
+
+    private void getdata(){
+
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
+
+
 
     }
 

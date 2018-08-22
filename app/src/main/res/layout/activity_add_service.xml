@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ServiceNameChargeActivity"
+    tools:context=".activity.AddServiceActivity"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -29,7 +29,7 @@
         android:layout_margin="8dp">
 
         <EditText
-            android:id="@+id/editTextServiceName"
+            android:id="@+id/etServiceName"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="Service Name"
@@ -39,10 +39,10 @@
             android:textColor="#000000"
             android:textStyle="bold"/>
         <EditText
-            android:id="@+id/editTextServiceCost"
+            android:id="@+id/etServiceCost"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_below="@id/editTextServiceName"
+            android:layout_below="@id/etServiceName"
             android:layout_marginTop="10dp"
             android:hint="Service Cost"
             android:padding="10dp"
@@ -51,10 +51,10 @@
             android:textColor="#000000"
             android:textStyle="bold"/>
         <Button
-            android:id="@+id/buttonAddService"
+            android:id="@+id/btnAddService"
             android:layout_width="150dp"
             android:layout_height="50dp"
-            android:layout_below="@id/editTextServiceCost"
+            android:layout_below="@id/etServiceCost"
             android:text="Add"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"

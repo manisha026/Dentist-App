@@ -1,7 +1,9 @@
-package com.rethinkux.dentistapp;
+package com.rethinkux.dentistapp.models;
 
-public class ServiceModelClass {
-    String tvServiceName,tvServiceCostSymbol,tvServiceCost;
+public class ServiceModel {
+    private String tvServiceName;
+    private String tvServiceCostSymbol;
+    private String tvServiceCost;
 
     public String getTvServiceName() {
         return tvServiceName;
